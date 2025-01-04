@@ -7,11 +7,8 @@ use pocketmine\command\CommandSender;
 use pocketmine\player\GameMode;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat as TF;
-use EasyGamemode\utils\SingletonTrait;
 
 class GamemodeCommand extends Command {
-
-    use SingletonTrait;
 
     public function __construct() {
         parent::__construct("gm", "Change your game mode easier.", "/gm <mode> [player]", ["egm"]);
@@ -38,7 +35,7 @@ class GamemodeCommand extends Command {
         $targetPlayer = $sender;
 
         if (count($args) === 2) {
-            $targetPlayer = self::getInstance()->getServer()->getPlayerByPrefix($args[1]);
+            $targetPlayer = $sender->getServer()->getPlayerByPrefix($args[1]);
             if ($targetPlayer === null) {
                 $sender->sendMessage(TF::RED . "Player not found.");
                 return;
